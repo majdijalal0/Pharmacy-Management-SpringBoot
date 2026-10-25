@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire Utilisateur</title>
+</head>
+<body>
+
+<!-- Titre simplifié pour éviter les erreurs d'échappement -->
+<h1 th:if="${user.id == null}">Ajouter un utilisateur</h1>
+<h1 th:if="${user.id != null}">Modifier l'utilisateur</h1>
+
+<form th:action="@{/admin/users/save}" th:object="${user}" method="post">
+
+    <input type="hidden" th:field="*{id}" />
+
+    <div>
+        <label>Nom d'utilisateur :</label>
+        <input type="text" th:field="*{username}" required />
+    </div>
+    <br>
+    <div>
+        <label>Mot de passe :</label>
+        <input type="password" name="newPassword"
+               th:required="${user.id == null}"
+               placeholder="Laisser vide pour ne pas changer (en modification)" />
+        <small th:if="${user.id != null}">Laissez vide pour conserver le mot de passe actuel.</small>
+    </div>
+    <br>
+    <div>
+        <label>Rôle :</label>
+        <select name="roleName" required>
+            <option value="">-- Choisir un rôle --</option>
+            <!-- Vérification sécurisée pour éviter le NullPointerException -->
+            <option th:each="role : ${allRoles}"
+                    th:value="${role.name}"
+                    th:text="${role.name}"
+                    th:selected="${user.id != null and user.roles != null and !user.roles.isEmpty() and user.roles.iterator().next().name == role.name}">
+            </option>
+        </select>
+    </div>
+    <br>
+    <button type="submit">Enregistrer</button>
+    <a th:href="@{/admin/users}">Annuler</a>
+</form>
+
+</body>
+</html>

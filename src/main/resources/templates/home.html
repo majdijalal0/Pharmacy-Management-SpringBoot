@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Accueil - Pharmacie</title>
+</head>
+<body>
+<h1>Bienvenue dans l'application de gestion de pharmacie</h1>
+
+<!-- Affichage conditionnel selon le rôle -->
+<div sec:authorize="hasRole('ADMIN')">
+    <h3>Espace Administrateur</h3>
+    <ul>
+        <li><a th:href="@{/admin/medicaments}">Gérer les médicaments</a></li>
+        <li><a th:href="@{/admin/users}">Gérer les utilisateurs</a></li>
+    </ul>
+</div>
+
+<div sec:authorize="hasRole('PHARMACIEN')">
+    <h3>Espace Pharmacien</h3>
+    <a th:href="@{/pharmacien/medicaments}">Consulter les médicaments</a>
+</div>
+
+<div sec:authorize="hasRole('CAISSIER')">
+    <h3>Espace Caissier</h3>
+    <a th:href="@{/caissier/ventes}">Enregistrer une vente</a>
+</div>
+
+<div sec:authorize="hasRole('CLIENT')">
+    <h3>Espace Client</h3>
+    <a th:href="@{/client/medicaments}">Voir les médicaments disponibles</a>
+</div>
+
+<br/>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Déconnexion</button>
+</form>
+</body>
+</html>

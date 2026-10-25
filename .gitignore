@@ -1,0 +1,75 @@
+# ==================================================
+# 1. Build output (Maven)
+# ==================================================
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+dependency-reduced-pom.xml
+
+# ==================================================
+# 2. IDE / Editor files
+# ==================================================
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Eclipse / STS
+.classpath
+.project
+.settings/
+.metadata/
+.springBeans
+sts/
+
+# VS Code
+.vscode/
+
+# NetBeans
+nbproject/
+build/
+
+# ==================================================
+# 3. Compiled class files & JARs
+# ==================================================
+*.class
+*.jar
+*.war
+*.ear
+!mvnw
+!mvnw.cmd
+
+# ==================================================
+# 4. Logs & temp files
+# ==================================================
+logs/
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+
+# ==================================================
+# 5. OS-generated files
+# ==================================================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ==================================================
+# 6. Secrets & environment-specific files
+# ==================================================
+
+application.properties
+application.yml
+
+# ==================================================
+# 7. H2 database files (if you use file-based H2)
+# ==================================================
+*.mv.db
+*.trace.db

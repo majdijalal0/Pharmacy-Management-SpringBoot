@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des Utilisateurs</title>
+</head>
+<body>
+
+<h1>Espace Admin : Gestion des Utilisateurs</h1>
+
+<div th:if="${success}" style="color: green;"><p th:text="${success}"></p></div>
+<div th:if="${error}" style="color: red;"><p th:text="${error}"></p></div>
+
+<a th:href="@{/admin/users/new}">+ Ajouter un nouvel utilisateur</a>
+<br><br>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nom d'utilisateur</th>
+        <th>Rôle</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="u : ${users}">
+        <td th:text="${u.id}"></td>
+        <td th:text="${u.username}"></td>
+        <td>
+            <!-- On affiche le premier rôle trouvé -->
+            <span th:if="${not #lists.isEmpty(u.roles)}" th:text="${u.roles.iterator().next().name}"></span>
+        </td>
+        <td>
+            <a th:href="@{/admin/users/edit/{id}(id=${u.id})}">Modifier</a> |
+            <form th:action="@{/admin/users/delete/{id}(id=${u.id})}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Supprimer cet utilisateur ?');">Supprimer</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<a th:href="@{/home}">Retour à l'accueil</a>
+
+</body>
+</html>

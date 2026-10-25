@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestion des médicaments</title>
+</head>
+<body>
+<h1>Liste des médicaments</h1>
+
+<!-- Messages flash -->
+<p th:if="${success}" style="color:green;" th:text="${success}"></p>
+<p th:if="${error}"   style="color:red;"   th:text="${error}"></p>
+
+<a th:href="@{/admin/medicaments/new}">Ajouter un médicament</a>
+<br/><br/>
+
+<table border="1" cellpadding="8">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Prix (MAD)</th>
+        <th>Stock</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="m : ${medicaments}">
+        <td th:text="${m.id}"></td>
+        <td th:text="${m.nom}"></td>
+        <td th:text="${m.description}"></td>
+        <td th:text="${m.prix}"></td>
+        <td th:text="${m.stock}"></td>
+        <td>
+            <a th:href="@{/admin/medicaments/edit/{id}(id=${m.id})}">Modifier</a>
+            &nbsp;|&nbsp;
+            <form th:action="@{/admin/medicaments/delete/{id}(id=${m.id})}"
+                  method="post" style="display:inline;">
+                <button type="submit"
+                        onclick="return confirm('Supprimer ce médicament ?')">
+                    Supprimer
+                </button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br/>
+<a th:href="@{/home}">← Retour à l'accueil</a>
+</body>
+</html>

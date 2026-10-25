@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalogue - Espace Client</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+
+<h1>Espace Client : Médicaments Disponibles</h1>
+<p>Voici la liste des médicaments actuellement en stock dans notre pharmacie.</p>
+
+<table>
+    <thead>
+    <tr>
+        <th>Nom du médicament</th>
+        <th>Prix (DH)</th>
+        <th>Disponibilité</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="med : ${medicaments}">
+        <td th:text="${med.nom}"></td>
+        <td th:text="${med.prix}"></td>
+        <td>
+                    <span th:if="${med.stock > 0}" style="color: green; font-weight: bold;">
+                        En stock
+                    </span>
+            <span th:if="${med.stock == 0}" style="color: red;">
+                        Rupture de stock
+                    </span>
+        </td>
+    </tr>
+    <!-- Cas où la liste est vide -->
+    <tr th:if="${#lists.isEmpty(medicaments)}">
+        <td colspan="3" style="text-align: center;">Aucun médicament disponible pour le moment.</td>
+    </tr>
+    </tbody>
+</table>
+
+<br><br>
+<a th:href="@{/home}">Retour à l'accueil</a>
+
+</body>
+</html>

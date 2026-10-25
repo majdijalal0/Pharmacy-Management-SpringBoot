@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des Stocks - Pharmacien</title>
+</head>
+<body>
+
+<h1>Espace Pharmacien : Gestion des Stocks</h1>
+
+<!-- Message de succès après modification -->
+<div th:if="${success}" style="color: green; font-weight: bold;">
+    <p th:text="${success}"></p>
+</div>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Prix</th>
+        <th>Stock Actuel</th>
+        <th>Modifier le Stock</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="medicament : ${medicaments}">
+        <td th:text="${medicament.id}"></td>
+        <td th:text="${medicament.nom}"></td>
+        <td th:text="${medicament.prix}"></td>
+        <td th:text="${medicament.stock}"></td>
+        <td>
+            <!-- Formulaire qui envoie la requête POST au contrôleur -->
+            <form th:action="@{/pharmacien/medicaments/stock/{id}(id=${medicament.id})}" method="post">
+                <input type="number" name="nouveauStock" required min="0" th:value="${medicament.stock}" />
+                <button type="submit">Mettre à jour</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<a th:href="@{/home}">Retour à l'accueil</a>
+</body>
+</html>
